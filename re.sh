@@ -1,4 +1,4 @@
-#!/bin/bash
+  #!/bin/bash
 
 CONFIG="$1"
 COMMAND="$2"
@@ -21,7 +21,6 @@ fi
 # Loop through the all files in the sites-avaliable directory
 # Build a list of filenames to display in the error message
 # If we find a match set $FILEMATCH to true and stop build the list
-                   
 for FILENAME in $VHOSTS
 do
 
@@ -39,18 +38,11 @@ do
   if [ "$FILENAME" == "/etc/apache2/sites-available/${CONFIG}.conf" ]
   then
     # Set $FILEMATCH to true if one of those files matches an actual
-    # virtual-host configuration and break the loop
+ # virtual-host configuration and break the loop
     FILEMATCH=true
     break
   fi
 done
-
-# We could not match the first argument to a virtual-host preset the user with an error
-if [ $FILEMATCH  == false ]
-then
-    echo "ERROR: ${CONFIG} is NOT a valid virtual-host. Please choose from the following ${VALID_VHOSTS} $VHOST"
-    exit 1
-fi
 
 # reload is allowed
 if [ "$COMMAND" == "reload" ] || [ "$COMMAND" == "restart" ]
@@ -60,7 +52,7 @@ then
 
     # Disable a vhost configuration
     sudo a2dissite "$CONFIG"
-    sudo service apache2 "$COMMAND"
+ sudo service apache2 "$COMMAND"
 
     # Enable a vhost configuration
     sudo a2ensite "$CONFIG"
@@ -69,9 +61,3 @@ else
     echo "ERROR: $COMMAND is an invalid service command {restart|reload}"
     exit 1
 fi
-                                                        70,1          Bot
-
-
-
-
-

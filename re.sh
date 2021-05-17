@@ -35,7 +35,7 @@ do
       VALID_VHOSTS="${VALID_VHOSTS}\n * $VHOST"
     fi
 
- if [ "$FILENAME" == "/etc/apache2/sites-available/${CONFIG}.conf" ]
+  if [ "$FILENAME" == "/etc/apache2/sites-available/${CONFIG}.conf" ]
   then
     # Set $FILEMATCH to true if one of those files matches an actual
     # virtual-host configuration and break the loop
@@ -60,7 +60,8 @@ then
     # Disable a vhost configuration
     sudo a2dissite "$CONFIG"
     sudo service apache2 "$COMMAND"
- # Enable a vhost configuration
+
+    # Enable a vhost configuration
     sudo a2ensite "$CONFIG"
     sudo service apache2 "$COMMAND"
 else

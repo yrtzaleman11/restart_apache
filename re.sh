@@ -1,39 +1,28 @@
 #!/bin/bash
+
 CONFIG="$1"
 COMMAND="$2"
 
+# Does the first parameter an actual virtual-host
+FILEMATCH=false
+
+# A concatenated string of virtual hosts
+VALID_VHOSTS=''
+
+# Grab a list of all virtual-host files
+VHOSTS=/etc/apache2/sites-available/*.conf
+
 if [ $# -ne 2 ]
 then
-    echo "$0 requires two parameters {virtual-host} {restart|reload}"
+    echo "ERROR: $0 requires two parameters {virtual-host} {restart|reload}"
     exit 1
 fi
 
+# Loop through the all files in the sites-avaliable directory
+# Build a list of filenames to display in the error message
+# If we find a match set $FILEMATCH to true and stop build the list
+                   
 
-# only allow reload or restart.
-if [ "$COMMAND" == "reload" ] || [ "$COMMAND" == "restart" ]
-then
- # Move the current execution state to the proper directory
-    cd /etc/apache2/sites-available
 
-    # Disable a vhost configuration
-    sudo a2dissite "$CONFIG"
-    sudo service apache2 "$COMMAND"
-
-    # Enable a vhost configuration
-    sudo a2ensite "$CONFIG"
-    sudo service apache2 "$COMMAND"
-
-else
-    echo "ERROR: $COMMAND is an invalid service command {restart|reload}"
-    exit 1
-fi
-
-# List all of the configuration files in the _/etc/apache2/sites-available/_ directory
-VHOSTS_PATH=/etc/apache2/sites-available/*.conf
-
-for FILENAME in $VHOSTS_PATH
-do
-  echo $FILENAME
-done
 
 
